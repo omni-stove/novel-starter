@@ -1,0 +1,14 @@
+{
+  "$schema": "https://raw.githubusercontent.com/omni-stove/novel-kit/main/vscode/schemas/novel.schema.json",
+  "title": "（作品名）",
+  "author": "（筆名）",
+  "outputs": {
+    "pdf": true,
+    "epub": true
+  },
+  "writingMode": "vertical",
+  "paper": "A4",
+  "orientation": "landscape",
+  "chars": 40,
+  "lines": 40
+}

@@ -1,0 +1,7 @@
+{
+  "workbench.editorAssociations": {
+    "*.txt": "novelPreview.editor"
+  },
+  "files.encoding": "utf8",
+  "editor.wordWrap": "on"
+}
