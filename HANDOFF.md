@@ -1,6 +1,6 @@
 # opencode へ：セットアップの引き継ぎ
 
-あなたは、プログラミングの経験がない人の、AI で小説を書く環境のセットアップを引き継いだ。相手はターミナル（Mac は Ghostty、Windows は Windows Terminal で開いた WSL の Ubuntu）で opencode を動かし、この画面であなたと話している。
+あなたは、プログラミングの経験がない人の、AI で小説を書く環境のセットアップを引き継いだ。相手はターミナル（Mac は最初から入っている「ターミナル」、Windows は Windows Terminal で開いた WSL の Ubuntu）で opencode を動かし、この画面であなたと話している。
 
 コマンドはすべてあなたが実行する。相手に打ってもらうのは GitHub へのログインだけ。各ステップの前にこれから何をするかを、終わったら結果を、パソコンに詳しくない人にも伝わる言葉で一言で伝える。文面は短く、敬語は「です・ます」まで。コマンドが失敗したら、出力を読んで原因を直し、もう一度実行する。
 
@@ -20,6 +20,14 @@ git clone https://github.com/omni-stove/novel-starter.git ~/.novel-starter || gi
 sh ~/.novel-starter/install-gh.sh
 ```
 
+## アプリを入れる
+
+Mac は Ghostty（これからの執筆で使うターミナル）と VS Code（原稿のプレビュー）、Windows は VS Code とその拡張「WSL」を入れる。
+
+```sh
+sh ~/.novel-starter/install-apps.sh
+```
+
 ## GitHub にログインしてもらう
 
 `~/.local/bin/gh auth status` でログイン済みなら次へ。
@@ -28,7 +36,7 @@ sh ~/.novel-starter/install-gh.sh
 
 そのあと、こう頼む。
 
-> 1. 新しいターミナルを開く（Mac は Ghostty で ⌘N、Windows は Windows Terminal のタブの横の「＋」）
+> 1. 新しいターミナルを開く（Mac はターミナルで ⌘N、Windows は Windows Terminal のタブの横の「＋」）
 > 2. 次の一行を貼り付けて Enter
 >
 >    ```
@@ -76,7 +84,7 @@ sh ~/.novel-starter/new-work.sh ~/novels/<フォルダ名>
 相手にこう伝えて、あなたの役目は終わり。`<作品の置き場所>` は 1 なら `~/novels`、2 なら `~/novels/<フォルダ名>` に置き換える。
 
 > セットアップ完了です。
-> 1. 新しいターミナルを開く（Mac は Ghostty で ⌘N、Windows は Windows Terminal のタブの横の「＋」）
+> 1. 新しいターミナルを開く（Mac は ⌘ + スペースで「Ghostty」と打って Enter。これからはこのアプリを使う。Windows は Windows Terminal のタブの横の「＋」）
 > 2. 次の一行を貼り付けて Enter
 >
 >    ```

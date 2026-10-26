@@ -11,6 +11,7 @@ die() { printf 'new-work: %s\n' "$*" >&2; exit 1; }
 dest=$1
 [ ! -e "$dest/README.md" ] && [ ! -e "$dest/story" ] || die "$dest にはもう作品があります。"
 
+export PATH="$HOME/.local/bin:$PATH"
 here=$(cd "$(dirname -- "$0")" && pwd)
 mkdir -p "$dest"
 cd "$dest"
@@ -19,6 +20,7 @@ root=$(git rev-parse --show-toplevel 2>/dev/null) || die "$dest は new-repo.sh 
 cp -R "$here/template/work/." .
 git add -A .
 git commit -q -m "作品 $(basename "$(pwd)") を足す"
+! git -C "$root" remote get-url origin >/dev/null 2>&1 || git push -q
 echo "作品を足しました: $(pwd)"
 
 if command -v code >/dev/null 2>&1; then

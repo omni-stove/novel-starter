@@ -28,10 +28,8 @@ ChatGPT・Claude・Gemini などのチャット AI に、このページの URL 
 
 ### Mac の手順
 
-1. https://code.visualstudio.com/ から「Download for Mac」で VS Code をダウンロードし、開いた「Visual Studio Code」を「アプリケーション」フォルダにドラッグしてもらう。原稿のプレビューに使う
-2. https://ghostty.org/download から Ghostty をダウンロードし、同じように「アプリケーション」フォルダにドラッグしてもらう。opencode を動かすターミナルに使う
-3. Ghostty を起動してもらう。「開いてもよいか」と聞かれたら「開く」を押してもらう
-4. 「引き継ぎ」へ
+1. ⌘（command）+ スペースで検索を開き、「ターミナル」と打って Enter で起動してもらう。Mac に最初から入っているアプリで、セットアップの間だけ使う
+2. 「引き継ぎ」へ
 
 ### Windows の手順
 
@@ -43,10 +41,8 @@ ChatGPT・Claude・Gemini などのチャット AI に、このページの URL 
    ```
 
 3. 再起動後に開く Ubuntu の画面（開かなければスタートメニューから「Ubuntu」を起動）で、ユーザー名とパスワードを決めて入力してもらう。パスワードは打っても画面に何も出ないのが正常だと先に伝え、あとで使うので覚えておくよう頼む
-4. https://code.visualstudio.com/ から「Download for Windows」で VS Code をダウンロードしてインストールしてもらう。原稿のプレビューに使う
-5. VS Code の左の「拡張機能」（四角が4つのアイコン）で「WSL」を検索して入れてもらい、VS Code は閉じてもらう
-6. Windows Terminal を開き、タブの横の「∨」→「設定」→「スタートアップ」→「既定のプロファイル」で「Ubuntu」を選んで「保存」してもらう。これでタブの横の「＋」を押すと Ubuntu が開く
-7. Windows Terminal を開き直して「引き継ぎ」へ
+4. Windows Terminal を開き、タブの横の「∨」→「設定」→「スタートアップ」→「既定のプロファイル」で「Ubuntu」を選んで「保存」してもらう。これでタブの横の「＋」を押すと Ubuntu が開く
+5. Windows Terminal を開き直して「引き継ぎ」へ
 
 ### 引き継ぎ
 
@@ -56,7 +52,7 @@ ChatGPT・Claude・Gemini などのチャット AI に、このページの URL 
    curl -fsSL https://opencode.ai/install | bash
    ```
 
-2. ターミナルを閉じて開き直してもらう（Mac は Ghostty を ⌘Q で終了して起動し直す、Windows は Windows Terminal のタブの横の「＋」で新しいタブを開き、前のタブは閉じる）
+2. ターミナルを閉じて開き直してもらう（Mac はターミナルを ⌘Q で終了して起動し直す、Windows は Windows Terminal のタブの横の「＋」で新しいタブを開き、前のタブは閉じる）
 3. ターミナルで `opencode` と打って Enter。AI と話す画面が出る
 4. `/models` と打って Enter し、名前に **Free** が付いたモデルを矢印キーで選んで Enter。サインインやお金はいらない
 5. opencode の入力欄に、次の文をそのまま貼り付けて Enter してもらう
@@ -68,3 +64,10 @@ ChatGPT・Claude・Gemini などのチャット AI に、このページの URL 
 6. 「ここからは opencode が案内します。実行の許可を聞かれたら許可してください。困ったらここで聞いてください」と伝えて、あなたの案内は終わり
 
 opencode が「モデルが混んでいる」などのエラーで止まったら、`/models` で別の Free モデルに切り替えて、同じ文をもう一度送ってもらう。
+
+---
+
+## 設計メモ
+
+- opencode は専用のターミナルアプリ（Mac は Ghostty、Windows は Windows Terminal）で動かす。VS Code の統合ターミナルは根本的にパフォーマンスに問題があるので使わない。VS Code は原稿のプレビュー専用で、opencode の VS Code 拡張も入れない
+- opencode はなるべく早く入れ、コマンドでできることはすべて opencode に任せる。チャット AI が案内するのは opencode を動かすまで（Mac はターミナルを開くだけ、Windows は WSL と Windows Terminal の用意）。Ghostty と VS Code は opencode が `install-apps.sh` で入れる。そのため Mac では、セットアップの間だけ最初から入っている「ターミナル」で opencode を動かす

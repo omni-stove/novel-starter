@@ -1,5 +1,5 @@
 #!/bin/sh
-# 原稿のリポジトリを作り、skill-kit の執筆スキルを入れる。作品は new-work.sh で足す。
+# 原稿のリポジトリを作り、skill-kit の執筆スキルを入れ、GitHub の非公開リポジトリにバックアップする。作品は new-work.sh で足す。
 # 1作品だけのリポジトリも、作品を src/<作品> に並べるリポジトリも、ここは同じ。
 # 使い方: sh new-repo.sh <フォルダ>
 set -eu
@@ -12,6 +12,9 @@ dest=$1
 
 export PATH="$HOME/.local/bin:$PATH"
 command -v skill-kit >/dev/null 2>&1 || die "skill-kit がありません。先に sh setup.sh を実行してください。"
+gh auth status >/dev/null 2>&1 || die "GitHub にログインしていません。gh auth login でログインしてください。"
+name=$(basename -- "$dest")
+! gh repo view "$name" >/dev/null 2>&1 || die "GitHub にもう $name というリポジトリがあります。別のフォルダ名にしてください。"
 
 here=$(cd "$(dirname -- "$0")" && pwd)
 mkdir -p "$dest"
@@ -21,4 +24,5 @@ git init -q
 skill-kit story sync
 git add -A
 git commit -q -m "原稿のリポジトリを作る"
-echo "リポジトリを作りました: $(pwd)"
+gh repo create "$name" --private --source . --remote origin --push >/dev/null
+echo "リポジトリを作りました: $(pwd)（GitHub: $(gh repo view --json url -q .url)）"
