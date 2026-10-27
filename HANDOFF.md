@@ -1,90 +1,55 @@
 # opencode へ：セットアップの引き継ぎ
 
-あなたは、プログラミングの経験がない人の、AI で小説を書く環境のセットアップを引き継いだ。相手はターミナル（Mac は最初から入っている「ターミナル」、Windows は Windows Terminal で開いた WSL の Ubuntu）で opencode を動かし、この画面であなたと話している。
+プログラミングの経験がない人の、AI で小説を書く環境のセットアップを引き継いだ。相手はターミナル（Mac は標準の「ターミナル」、Windows は Windows Terminal の WSL Ubuntu）であなたと話している。
 
-コマンドはすべてあなたが実行する。相手に打ってもらうのは GitHub へのログインだけ。各ステップの前にこれから何をするかを、終わったら結果を、パソコンに詳しくない人にも伝わる言葉で一言で伝える。文面は短く、敬語は「です・ます」まで。コマンドが失敗したら、出力を読んで原因を直し、もう一度実行する。
+コマンドはすべてあなたが実行する。相手にしてもらうのは GitHub へのログインと、画面での操作が要るところだけ。文面は短く、敬語は「です・ます」まで。
 
 ## git を用意する
 
-`git --version` を実行する。出なければ次を実行する。
+git が無ければ入れる（Mac は `xcode-select --install`、WSL は `apt`）。`user.name` が空なら相手にペンネームなど好きな名前を聞いて設定し、`user.email` は聞かずに `<名前>@users.noreply.github.com` にする。
 
-- Mac：`xcode-select --install` を実行し、「出てきたウィンドウで『インストール』を押して、終わったら教えてください」と頼む。終わったら `git --version` で確かめる
-- Linux（WSL）：`sudo apt update && sudo apt install -y git curl`。パスワードを聞かれたら、Ubuntu を入れたときに決めたパスワードを相手にターミナルへ打ってもらう
+## スクリプトの実行のしかた
 
-`git config --global user.name` が空なら、相手にペンネームなど好きな名前を聞いて `git config --global user.name "<名前>"` を設定する。`git config --global user.email` が空なら、メールアドレスは聞かずに `git config --global user.email "<名前>@users.noreply.github.com"` を設定する。
-
-## キットを取ってきて gh を入れる
+このあと出てくる `<スクリプト>` は clone せずに、GitHub から直接実行する。引数があれば `sh -s --` のあとに付ける。
 
 ```sh
-git clone https://github.com/omni-stove/novel-starter.git ~/.novel-starter || git -C ~/.novel-starter pull --ff-only
-sh ~/.novel-starter/install-gh.sh
+curl -fsSL https://raw.githubusercontent.com/omni-stove/novel-starter/main/<スクリプト> | sh -s -- <引数>
 ```
 
-## アプリを入れる
+## gh とアプリを入れる
 
-Mac は Ghostty（これからの執筆で使うターミナル）と VS Code（原稿のプレビュー）、Windows は VS Code とその拡張「WSL」を入れる。
-
-```sh
-sh ~/.novel-starter/install-apps.sh
-```
+`install-gh.sh`、`install-apps.sh` の順に実行する。
 
 ## GitHub にログインしてもらう
 
-`~/.local/bin/gh auth status` でログイン済みなら次へ。
+ログイン済み（`~/.local/bin/gh auth status`）なら次へ。アカウントが無ければ https://github.com/signup で作ってもらう。ログインは対話式なので、相手に新しいターミナルで次を実行してもらい、ブラウザで承認してもらう。
 
-まだなら、相手に GitHub のアカウントがあるか聞く。無ければ https://github.com/signup で無料で作ってもらう（メールアドレスとパスワードを決めるだけ、と伝える）。
-
-そのあと、こう頼む。
-
-> 1. 新しいターミナルを開く（Mac はターミナルで ⌘N、Windows は Windows Terminal のタブの横の「＋」）
-> 2. 次の一行を貼り付けて Enter
->
->    ```
->    ~/.local/bin/gh auth login --web --hostname github.com --git-protocol https
->    ```
->
-> 3. 質問には Enter。出てきた8文字のコードを、開いたブラウザに貼り付けて「Authorize」
-> 4. 「Logged in as …」と出たら、ここに戻って「できた」と送る
-
-「できた」と言われたら `~/.local/bin/gh auth status` で確かめる。
+```sh
+~/.local/bin/gh auth login --web --hostname github.com --git-protocol https
+```
 
 ## 道具を入れる
 
-```sh
-sh ~/.novel-starter/setup.sh
-```
+`setup.sh` を実行する。
 
 ## 作品のフォルダを作る
 
-相手に、これから書く作品の仮の名前を聞く（あとで変えられると伝える）。その名前から英小文字・数字・ハイフンだけのフォルダ名を決める。
-
-次に、作品の置き方を相手に選んでもらう。
+作品の仮の名前を聞き（あとで変えられる）、英小文字・数字・ハイフンだけのフォルダ名にする。置き方を選んでもらう。
 
 > 1. **いくつも書く**：作品を並べる棚を作る。あとから作品を足しやすい（おすすめ）
 > 2. **この作品だけ**：この作品専用のフォルダを作る
 
-1 なら（`~/novels` がもうあれば `new-repo.sh` を飛ばす）：
+| | `new-repo.sh` の引数 | `new-work.sh` の引数 |
+|---|---|---|
+| 1 | `~/novels`（もうあれば飛ばす） | `~/novels/src/<フォルダ名>` |
+| 2 | `~/novels/<フォルダ名>` | `~/novels/<フォルダ名>` |
 
-```sh
-sh ~/.novel-starter/new-repo.sh ~/novels
-sh ~/.novel-starter/new-work.sh ~/novels/src/<フォルダ名>
-```
+## 引き継ぐ
 
-2 なら：
-
-```sh
-sh ~/.novel-starter/new-repo.sh ~/novels/<フォルダ名>
-sh ~/.novel-starter/new-work.sh ~/novels/<フォルダ名>
-```
-
-## 作品のフォルダに移ってもらう
-
-`new-work.sh` が開いた VS Code のウィンドウは原稿のプレビュー用。開かなかったら、VS Code の「ファイル」→「フォルダーを開く」で `~/novels`（2 なら `~/novels/<フォルダ名>`）を開いてもらう（Windows では WSL につないだウィンドウで開く）。
-
-相手にこう伝えて、あなたの役目は終わり。`<作品の置き場所>` は 1 なら `~/novels`、2 なら `~/novels/<フォルダ名>` に置き換える。
+`new-work.sh` が開く VS Code は原稿のプレビュー用（Windows では WSL につないで開く）。相手にこう伝えて終わり。`<作品の置き場所>` は 1 なら `~/novels`、2 なら `~/novels/<フォルダ名>`。
 
 > セットアップ完了です。
-> 1. 新しいターミナルを開く（Mac は ⌘ + スペースで「Ghostty」と打って Enter。これからはこのアプリを使う。Windows は Windows Terminal のタブの横の「＋」）
+> 1. 新しいターミナルを開く（Mac はこれから Ghostty を使います。Windows は Windows Terminal の「＋」）
 > 2. 次の一行を貼り付けて Enter
 >
 >    ```
@@ -93,4 +58,4 @@ sh ~/.novel-starter/new-work.sh ~/novels/<フォルダ名>
 >
 > 3. 「書きたい話があります」と送る
 >
-> あとは AI が案内します。原稿は VS Code でプレビューできます。セットアップに使ったターミナルは閉じてOKです。
+> あとは AI が案内します。原稿は VS Code でプレビューできます。
