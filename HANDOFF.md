@@ -1,55 +1,64 @@
-# opencode へ：セットアップの引き継ぎ
+# For opencode: setup handover
 
-プログラミングの経験がない人の、AI で小説を書く環境のセットアップを引き継いだ。相手はターミナル（Mac は標準の「ターミナル」、Windows は Windows Terminal の WSL Ubuntu）であなたと話している。
+You are taking over a setup. The user has no programming experience and wants an environment for writing novels with AI. They talk to you in a terminal: on Mac, the built-in 「ターミナル」; on Windows, WSL Ubuntu in Windows Terminal.
 
-コマンドはすべてあなたが実行する。相手にしてもらうのは GitHub へのログインと、画面での操作が要るところだけ。文面は短く、敬語は「です・ます」まで。
+Rules:
 
-## git を用意する
+- Do only the steps written here. Nothing else.
+- You run every command yourself. The user only logs in to GitHub and does things that need the screen.
+- Always write to the user in Japanese. Keep it short. Use plain polite Japanese (です・ます), no honorifics beyond that.
+- Do not explain why a step is needed. Only say what to do.
+- Use a code block only for text the user copies and pastes. Do not show the commands you run yourself, or write them as normal text.
+- Text in 「」 or in quote blocks (>) is shown to the user as is. Do not translate or rephrase it.
 
-git が無ければ入れる（Mac は `xcode-select --install`、WSL は `apt`）。`user.name` が空なら相手にペンネームなど好きな名前を聞いて設定し、`user.email` は聞かずに `<名前>@users.noreply.github.com` にする。
+## 1. Prepare git
 
-## スクリプトの実行のしかた
+If git is missing, install it (Mac: `xcode-select --install`, WSL: `apt`). If `user.name` is empty, ask the user for any name they like, such as a pen name, and set it. Do not ask for `user.email`; set it to `<name>@users.noreply.github.com`.
 
-このあと出てくる `<スクリプト>` は clone せずに、GitHub から直接実行する。引数があれば `sh -s --` のあとに付ける。
+## How to run scripts
+
+Do not clone. Run each `<script>` below directly from GitHub. Put arguments after `sh -s --`.
 
 ```sh
-curl -fsSL https://raw.githubusercontent.com/omni-stove/novel-starter/main/<スクリプト> | sh -s -- <引数>
+curl -fsSL https://raw.githubusercontent.com/omni-stove/novel-starter/main/<script> | sh -s -- <arguments>
 ```
 
-## gh とアプリを入れる
+## 2. Install gh and apps
 
-`install-gh.sh`、`install-apps.sh` の順に実行する。
+Run `install-gh.sh`, then `install-apps.sh`.
 
-## GitHub にログインしてもらう
+## 3. Have the user log in to GitHub
 
-ログイン済み（`~/.local/bin/gh auth status`）なら次へ。アカウントが無ければ https://github.com/signup で作ってもらう。ログインは対話式なので、相手に新しいターミナルで次を実行してもらい、ブラウザで承認してもらう。
+If already logged in (`~/.local/bin/gh auth status`), go to the next step. If the user has no account, have them create one at https://github.com/signup. Have the user open a new terminal, run this, and approve in the browser:
 
 ```sh
 ~/.local/bin/gh auth login --web --hostname github.com --git-protocol https
 ```
 
-## 道具を入れる
+## 4. Install the tools
 
-`setup.sh` を実行する。
+Run `setup.sh`.
 
-## 作品のフォルダを作る
+## 5. Create the folder for the work
 
-作品の仮の名前を聞き（あとで変えられる）、英小文字・数字・ハイフンだけのフォルダ名にする。置き方を選んでもらう。
+Ask the user for a working title of their novel (they can change it later). Turn it into a folder name using only lowercase letters, digits and hyphens. Then have them choose one:
 
 > 1. **いくつも書く**：作品を並べる棚を作る。あとから作品を足しやすい（おすすめ）
 > 2. **この作品だけ**：この作品専用のフォルダを作る
 
-| | `new-repo.sh` の引数 | `new-work.sh` の引数 |
+Run `new-repo.sh`, then `new-work.sh`, with these arguments:
+
+| Choice | `new-repo.sh` | `new-work.sh` |
 |---|---|---|
-| 1 | `~/novels`（もうあれば飛ばす） | `~/novels/src/<フォルダ名>` |
-| 2 | `~/novels/<フォルダ名>` | `~/novels/<フォルダ名>` |
+| 1 | `~/novels` (skip if it already exists) | `~/novels/src/<folder>` |
+| 2 | `~/novels/<folder>` | `~/novels/<folder>` |
 
-## 引き継ぐ
+## 6. Finish
 
-`new-work.sh` が開く VS Code は原稿のプレビュー用（Windows では WSL につないで開く）。相手にこう伝えて終わり。`<作品の置き場所>` は 1 なら `~/novels`、2 なら `~/novels/<フォルダ名>`。
+Tell the user this and stop. Replace `<作品の置き場所>` with `~/novels` for choice 1, or `~/novels/<folder>` for choice 2.
 
 > セットアップ完了です。
-> 1. 新しいターミナルを開く（Mac はこれから Ghostty を使います。Windows は Windows Terminal の「＋」）
+> 1. 新しいターミナルを開く（Mac は Ghostty、Windows は Windows Terminal の「＋」）
 > 2. 次の一行を貼り付けて Enter
 >
 >    ```
