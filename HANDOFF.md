@@ -35,6 +35,8 @@ If already logged in (`~/.local/bin/gh auth status`), go to the next step. If th
 ~/.local/bin/gh auth login --web --hostname github.com --git-protocol https
 ```
 
+If the browser does not open, have the user open https://github.com/login/device and enter the code shown in the terminal. If asked 「Authenticate Git with your GitHub credentials?」, have them press Enter.
+
 ## 4. Install the tools
 
 Run `setup.sh`.
@@ -53,18 +55,26 @@ Run `new-repo.sh`, then `new-work.sh`, with these arguments:
 | 1 | `~/novels` (skip if it already exists) | `~/novels/src/<folder>` |
 | 2 | `~/novels/<folder>` | `~/novels/<folder>` |
 
-## 6. Finish
+## 6. Make opencode start by itself
 
-Tell the user this and stop. Replace `<作品の置き場所>` with `~/novels` for choice 1, or `~/novels/<folder>` for choice 2.
+Run `install-launcher.sh` with `~/novels` for choice 1, or `~/novels/<folder>` for choice 2.
+
+## 7. Finish
+
+Tell the user the message for their system and stop.
+
+Mac:
 
 > セットアップ完了です。
-> 1. 新しいターミナルを開く（Mac は Ghostty、Windows は Windows Terminal の「＋」）
-> 2. 次の一行を貼り付けて Enter
+> 1. このターミナルを閉じて、Ghostty を開く
+> 2. 「書きたい話があります」と送る
 >
->    ```
->    cd <作品の置き場所> && opencode
->    ```
->
-> 3. 「書きたい話があります」と送る
+> あとは AI が案内します。原稿は VS Code でプレビューできます。
+
+Windows:
+
+> セットアップ完了です。
+> 1. このウィンドウを閉じて、デスクトップの「小説を書く」をダブルクリック
+> 2. 「書きたい話があります」と送る
 >
 > あとは AI が案内します。原稿は VS Code でプレビューできます。

@@ -18,6 +18,15 @@ if ! grep -qs '\.local/bin' "$rc"; then
 	printf '\nexport PATH="$HOME/.local/bin:$PATH"\n' >>"$rc"
 fi
 
+# WSL ではブラウザを開く手段が無いことがあるので、gh のログインで Windows のブラウザを開けるようにする。
+# explorer.exe は開けても失敗を返すので、成功として扱う小さなスクリプトを挟む。
+if grep -qsi microsoft /proc/version; then
+	mkdir -p "$bin"
+	printf '#!/bin/sh\nexplorer.exe "$1" || true\n' >"$bin/wsl-browser"
+	chmod +x "$bin/wsl-browser"
+	grep -qs 'GH_BROWSER' "$rc" || printf 'export GH_BROWSER="$HOME/.local/bin/wsl-browser"\n' >>"$rc"
+fi
+
 if command -v gh >/dev/null 2>&1 || [ -x "$bin/gh" ]; then
 	echo "gh は入っています"
 	exit 0
