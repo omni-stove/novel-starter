@@ -1,7 +1,7 @@
 #!/bin/sh
 # 執筆の道具を入れる。gh でログインしてから実行する（HANDOFF.md から opencode が実行する）。何度実行してもよい。
 #   - skill-kit（執筆用スキル集）
-#   - VS Code 拡張「小説プレビュー」（novel-kit）
+#   - VS Code 拡張「小説プレビュー」（novel-kit）と「Markdown Preview Mermaid Support」（Markdown の Mermaid 図）
 #   - opencode の設定（思考過程を隠す、実行の許可を聞かない）
 # 使い方: sh setup.sh
 set -eu
@@ -37,6 +37,8 @@ tmp=$(mktemp -d)
 gh release download "$tag" -R omni-stove/novel-kit -p novel-preview.vsix -D "$tmp"
 "$code_cmd" --install-extension "$tmp/novel-preview.vsix" --force
 rm -rf "$tmp"
+# Markdown のプレビューで Mermaid の図（相関図や年表）を描く。こちらはマーケットプレイスから入れる。
+"$code_cmd" --install-extension bierner.markdown-mermaid --force
 
 # --- opencode の表示 ------------------------------------------------------------
 say "opencode の表示"
