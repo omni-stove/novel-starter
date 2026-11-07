@@ -13,6 +13,8 @@ export PATH="$HOME/.local/bin:$PATH"
 command -v git >/dev/null 2>&1 || die "git がありません。"
 command -v gh >/dev/null 2>&1 || die "gh がありません。先に sh install-gh.sh を実行してください。"
 gh auth status >/dev/null 2>&1 || die "GitHub にログインしていません。gh auth login でログインしてください。"
+# ログインのときの質問への答えによらず、git の push に gh の認証を使う。
+gh auth setup-git
 
 code_cmd=
 if command -v code >/dev/null 2>&1; then
