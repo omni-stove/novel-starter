@@ -1,6 +1,6 @@
 #!/bin/sh
 # 執筆に使うアプリを入れる。入っているものは飛ばす。何度実行してもよい。
-#   Mac：Ghostty（opencode を動かすターミナル）と VS Code（原稿のプレビュー）
+#   Mac：Ghostty（AI エージェントを動かすターミナル）と VS Code（原稿のプレビュー）
 #   Windows（WSL）：VS Code と、その拡張「WSL」。Windows 側に winget で入れる
 # どちらも code コマンドを ~/.local/bin に置く（PATH は install-gh.sh が足す）。
 # 使い方: sh install-apps.sh

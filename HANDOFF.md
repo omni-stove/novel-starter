@@ -1,4 +1,4 @@
-# For opencode: setup handover
+# For the AI agent: setup handover
 
 You are taking over a setup. The user has no programming experience and wants an environment for writing novels with AI. They talk to you in a terminal: on Mac, the built-in 「ターミナル」; on Windows, WSL Ubuntu in Windows Terminal.
 
@@ -55,9 +55,9 @@ Run `new-repo.sh`, then `new-work.sh`, with these arguments:
 | 1 | `~/novels` (skip if it already exists) | `~/novels/src/<folder>` |
 | 2 | `~/novels/<folder>` | `~/novels/<folder>` |
 
-## 6. Make opencode start by itself
+## 6. Make the AI agent start by itself
 
-Run `install-launcher.sh` with `~/novels` for choice 1, or `~/novels/<folder>` for choice 2.
+Run `install-launcher.sh` with `~/novels` for choice 1, or `~/novels/<folder>` for choice 2. Add the name of the agent you are as the second argument: `opencode`, `claude` (Claude Code) or `codex`.
 
 ## 7. Finish
 

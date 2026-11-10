@@ -1,8 +1,8 @@
 #!/bin/sh
-# 執筆の道具を入れる。gh でログインしてから実行する（HANDOFF.md から opencode が実行する）。何度実行してもよい。
+# 執筆の道具を入れる。gh でログインしてから実行する（HANDOFF.md から AI エージェントが実行する）。何度実行してもよい。
 #   - skill-kit（執筆用スキル集）
 #   - VS Code 拡張「小説プレビュー」（novel-kit）と「Markdown Preview Mermaid Support」（Markdown の Mermaid 図）
-#   - opencode の設定（思考過程を隠す、実行の許可を聞かない）
+#   - opencode を使うときは、その設定（思考過程を隠す、実行の許可を聞かない）
 # 使い方: sh setup.sh
 set -eu
 
@@ -43,6 +43,8 @@ rm -rf "$tmp"
 "$code_cmd" --install-extension bierner.markdown-mermaid --force
 
 # --- opencode の表示 ------------------------------------------------------------
+# 入っているときだけ設定する。Claude Code や Codex の設定は、起動のしかたで install-launcher.sh が決める。
+if command -v opencode >/dev/null 2>&1 || [ -x "$HOME/.opencode/bin/opencode" ]; then
 say "opencode の表示"
 # 思考過程とツールの細部を隠し、結果だけを見せる。実行の許可は聞かない。ほかの設定は残す。
 cfg="${XDG_CONFIG_HOME:-$HOME/.config}/opencode/cli.json"
@@ -65,5 +67,6 @@ with open(path, "w") as f:
     json.dump(cfg, f, indent=2)
     f.write("\n")
 EOF
+fi
 
 say "完了"

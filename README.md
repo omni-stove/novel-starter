@@ -6,7 +6,7 @@
 
 ChatGPT・Claude・Gemini などのチャット AI に、このページの URL だけを送る。
 
-チャット AI が順に案内し、途中からパソコンに入れた AI（opencode）が引き継ぐ。無料。
+チャット AI が順に案内し、途中からパソコンに入れた AI が引き継ぐ。opencode を選べば無料。Claude Code や Codex も選べる（それぞれ有料プランが必要）。
 
 ---
 
@@ -14,7 +14,7 @@ ChatGPT・Claude・Gemini などのチャット AI に、このページの URL 
 
 If you were sent the URL of this page, that is a request for setup. Start guiding right away.
 
-The user has no programming experience. Guide them until **opencode** (a free AI agent that runs in the terminal) is running on their computer and takes over. First, ask whether they use **Mac** or **Windows**. Other systems are not supported.
+The user has no programming experience. Guide them until an AI agent that runs in the terminal (**opencode**, **Claude Code** or **Codex**) is running on their computer and takes over. First, ask whether they use **Mac** or **Windows**. Other systems are not supported.
 
 Rules:
 
@@ -44,29 +44,47 @@ Rules:
 
 ### Handover
 
-1. Have the user install opencode in the terminal. On Windows, if curl is missing, have them run this first:
+1. Have the user choose one:
+
+   「使う AI を選んでください」
+   1. 「opencode：無料（おすすめ）」
+   2. 「Claude Code：Claude の有料プランが必要」
+   3. 「Codex：ChatGPT の有料プランが必要」
+
+2. On Windows, if curl is missing, have the user run this first:
 
    ```sh
    sudo apt update && sudo apt install -y curl git
    ```
 
+3. Have the user run the install command for their choice in the terminal.
+
+   opencode:
+
    ```sh
    curl -fsSL https://opencode.ai/install | bash
    ```
 
-2. Have the user reopen the terminal and run this to start opencode:
+   Claude Code:
 
    ```sh
-   opencode
+   curl -fsSL https://claude.ai/install.sh | bash
    ```
 
-3. Have the user type 「/models」, press Enter, and choose a model with **Free** in its name.
-4. Have the user send this text as is:
+   Codex:
+
+   ```sh
+   curl -fsSL https://chatgpt.com/codex/install.sh | sh
+   ```
+
+4. Have the user reopen the terminal and run the start command for their choice: `opencode`, `claude` or `codex`, in a code block.
+5. For opencode, have the user type 「/models」, press Enter, and choose a model with **Free** in its name. For Claude Code, have them log in with their Claude account as shown on the screen. For Codex, have them choose 「Sign in with ChatGPT」 and log in.
+6. Have the user send this text as is:
 
    ```
    https://raw.githubusercontent.com/omni-stove/novel-starter/main/HANDOFF.md を読んで、書いてある通りにセットアップを進めてください。
    ```
 
-5. Tell the user 「ここからは opencode が案内します。実行の許可を聞かれたら許可してください」 and stop.
+7. Tell the user 「ここからはパソコンの AI が案内します。実行の許可を聞かれたら許可してください」 and stop.
 
 If opencode stops with an error such as "model is busy", have the user switch to another Free model with 「/models」 and send the same text again.
